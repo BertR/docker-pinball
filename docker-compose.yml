@@ -1,0 +1,26 @@
+mysql:
+    image: tutum/mysql
+    restart: always
+    ports:
+        - "3306:3306"
+    environment:
+        - MYSQL_USER=root
+        - MYSQL_PASS=password
+        - ON_CREATE_DB=pinball
+
+
+pinball:
+    image: pinball
+    restart: always
+    #volumes:
+    #    - /home/docker/Downloads/docker-airflow/dags:/usr/local/airflow/dags
+    #    - /home/docker/Downloads/docker-airflow/data/new:/usr/local/app1/data/new
+    #    - /home/docker/Downloads/docker-airflow/data/old:/usr/local/app1/data/old
+    #environment:
+    #    - AIRFLOW_HOME=/usr/local/airflow
+    ports:
+        - "8080:8080"
+    links:
+        - mysql:mysql
+    #command: webserver
+

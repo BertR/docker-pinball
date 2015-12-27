@@ -1,22 +1,27 @@
-FROM debian:8.0
+FROM ubuntu:trusty
 
-RUN apt-get -y update && \
-apt-get -y install git libmysqlclient-dev graphviz \
-python-pip python-dev libyaml-dev
+RUN apt-get -y update \
+    && apt-get -y install libmysqlclient-dev \ 
+    graphviz \ 
+    python-pip \
+    python-dev \ 
+    build-essential \ 
+    git 
 
-RUN git clone http://github.com/pinterest/pinball.git /pinball.git
-WORKDIR /pinball.git
-RUN python setup.py install
+RUN pip install --upgrade pip \
+    && pip install --allow-unverified pydot pydot==1.0.28 \ 
+    && pip install pinball
+
+RUN git clone https://github.com/pinterest/pinball.git /pinball \
+    && cp -r /pinball/tutorial /mnt
+
+ADD config.yaml /mnt/config.yaml
+ADD start /pinball/start
 
 VOLUME /mnt
-RUN cp -r /pinball.git/tutorial /mnt
+
 WORKDIR /mnt
-RUN cp /pinball.git/tutorial/example_repo/tutorial.yaml ./tutorial
-ADD tutorial.yaml /mnt/config.yaml
 
 EXPOSE 8080 9090
-
-RUN mkdir /pinball
-ADD start /pinball/start
 
 ENTRYPOINT ["/pinball/start"]
