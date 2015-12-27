@@ -1,2 +1,2 @@
-# Minimal docker image for running [Pinball](https://github.com/pinterest/pinball)
+# Minimal docker image for [Pinball](https://github.com/pinterest/pinball)
 
