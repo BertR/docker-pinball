@@ -12,15 +12,9 @@ mysql:
 pinball:
     image: pinball
     restart: always
-    #volumes:
-    #    - /home/docker/Downloads/docker-airflow/dags:/usr/local/airflow/dags
-    #    - /home/docker/Downloads/docker-airflow/data/new:/usr/local/app1/data/new
-    #    - /home/docker/Downloads/docker-airflow/data/old:/usr/local/app1/data/old
-    #environment:
-    #    - AIRFLOW_HOME=/usr/local/airflow
     ports:
         - "8080:8080"
     links:
         - mysql:mysql
-    #command: webserver
+    
 
